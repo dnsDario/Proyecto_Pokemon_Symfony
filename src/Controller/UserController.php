@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -12,6 +13,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
+    #[Route ("/")]
+    public function redirectToLogin(): RedirectResponse
+    {
+        return $this->redirectToRoute('app_login');
+    }
+
     #[Route("registrar/usuario", name: "newUser")]
     public function newUser(EntityManagerInterface $doctrine, Request $request, UserPasswordHasherInterface $hash){
         $form = $this->createForm(UserType::class);
