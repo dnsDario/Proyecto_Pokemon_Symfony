@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>
+			{% block title %}{% endblock %}
+		</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	</head>
+	<body>
+		<div class="container-fluid" style= "width: 100vw; margin: 0; padding: 0;">
+			{% block body %}
+				<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+					<button class=" navbar-toggler" type=" button" data-toggle=" collapse" data-target=" #navbarNavAltMarkup" aria-controls=" navbar"></button>
+					<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+						<div class="navbar-nav" style="width: 60%; justify-content: space-around;">
+
+							{% if not app.user %}
+							<a class="nav-link active mr-auto ml-auto" href="/login">Iniciar Sesión
+								<span class="sr-only">(current)</span>
+							</a>
+							<a class="nav-link active mr-auto ml-auto" href="{{path("newUser")}}">Registrarse
+							</a>
+							{% else %}
+							<a class="nav-link mr-auto ml-auto" href="{{path("list_pokemons")}}">Listar Pokemons</a>
+							{% if is_granted('ROLE_ADMIN') %}
+							<a class="nav-link mr-auto ml-auto" href="{{path("newPokemon")}}">Crear Pokemon</a>
+							<a class="nav-link mr-auto ml-auto" href="{{path("newAdmin")}}">Registrar Admin</a>
+							{% endif %}
+							{% endif %}
+						</div>
+					</div>
+					{% if app.user %}
+					<h4 class="navbar-nav" style="display: flex; align-items: center; width: auto; height: 20px; font-size:14px;  background-color: dark; color: white;"> Bienvenido, {{ app.user.name }} </h4>
+					<a href="{{ path('app_logout') }}" style="width:60px; margin-inline:20px;">Logout</a>
+					{% endif %}
+				</nav>
+				{% block pokemons %}{% endblock %}
+				{% block listPokemons %}{% endblock %}
+				{% block newPokemon %}{% endblock %}
+				{% block userForm %}{% endblock %}
+			{% endblock %}
+		</div>
+	</body>
+
+</html>
+
+

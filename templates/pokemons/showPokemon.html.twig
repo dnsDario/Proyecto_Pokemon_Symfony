@@ -1,0 +1,39 @@
+{% extends "base/base.html.twig" %}
+
+{% block pokemons %}
+{% for mensaje in app.flashes('success') %}
+	<h2 class="alert alert-success" role="alert" style="margin-top: 20px; margin-bottom: 20px; color: green;">
+		{{ mensaje }}
+	</h2>
+{% endfor %}
+		<div class="container" style="margin-top: 30px;">
+			<div class="row">
+				<div class="col text-center">
+					<h1> {{pokemon.name}} </h1>
+					<h2> Nº {{ pokemon.code }}</h2>
+				</div>
+			</div>
+			<div class="row my-3">
+				<div class="col">
+					<img src="{{ asset(pokemon.img) }}" alt="pokemon" style="width: 500px; height: auto; background-image: url('{{imageCards[pokemon.type]}}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+				</div>
+				<div class="col text-left">
+					<div class="row mt-2">
+						<div class="col">
+							<h4>Tipo:</h4>
+							<p style="font-size: 20px;">{{pokemon.type}}</p>
+							<h4>Descripción:</h4>
+							<p style="font-size: 20px;">{{pokemon.description}}</p>
+							<h4>Debilidades:</h4>
+							<ul>
+								{% for debilidad in pokemon.debilidades %}
+									<li>{{debilidad.types[0]}}</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+{% endblock %}
+
