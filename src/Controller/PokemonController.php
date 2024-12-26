@@ -16,7 +16,6 @@ class PokemonController extends AbstractController
     public function showPokemon(EntityManagerInterface $doctrine, $id){
         $repository = $doctrine->getRepository(Pokemon::class);
         $pokemon = $repository->find($id);
-
         $imageCards = [
             'Fuego' => 'https://www.mundodeportivo.com/alfabeta/hero/2022/01/pokeball-fuego.jpg?width=768&aspect_ratio=16:9&format=nowebp',
             'Planta' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5XQJr5FTVhlpSgCZ-nimmhEKzSPlPjKD_Kw&s',
@@ -89,6 +88,7 @@ class PokemonController extends AbstractController
             $doctrine->flush();
             $this->addFlash('success', 'Pokemon editado correctamente'); // Crea un mensaje (1er argumento, palabra clave, 2do argumento, contenido del mensaje)
             return $this->redirectToRoute('pokemon_show', ['id' => $pokemon->getId()]);
+            /* return $this->redirectToRoute('editPokemon', ['id' => $pokemon->getId() +1]); */ /* usar línea para editar pokemon por orden e ir más rápido, por ejemplo para meter las debilidades después de ejecutar las fixtures */
         }
 
         
